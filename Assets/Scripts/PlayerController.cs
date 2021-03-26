@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance { get; private set; }
-
+    public GameObject mainCam;
     public Rigidbody2D _rigidbody;
     [SerializeField] public float moveSpeed;
     [SerializeField] private float jumpForce;
@@ -18,8 +19,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rayDistance;
     private Vector2 _raycastDirection;
     private Transform _instruction;
-    int mask = 1 << 8;
+    //[HideInInspector]
     public bool grounded, goLeft, goRight;
+
+    public enum PlayerType
+    {
+       Player,
+       Enemy
+
+    }
+    public PlayerType type;
+
     private enum InstructionSet
     {
         Idle,
@@ -49,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        InstructionManager.Instance.OnInstructionGiven -= DragObject_OnInstructionGiven;
+       // InstructionManager.Instance.OnInstructionGiven -= DragObject_OnInstructionGiven;
     }
 
     private void DragObject_OnInstructionGiven(object sender, EventArgs e)
@@ -86,27 +96,50 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-       
-        if (LevelShiftHandler.Instance.startGame  && grounded)
+     switch(type)
         {
+            case PlayerType.Player:
+                if (LevelShiftHandler.Instance.startGame)
+                    this.transform.GetChild(0).transform.Rotate(0, 0, 1 * 10);
 
-            MoveRight();
-            this.transform.GetChild(0).transform.Rotate(0, 0, 1);
+                if (LevelShiftHandler.Instance.startGame && grounded)
+                {
+                    MoveRight();
+                }
+                if (LevelShiftHandler.Instance.startGame && grounded && goLeft)
+                {
 
+                    MoveLeft();
 
+                }
+                else if (goRight)
+                {
+
+                    MoveRight();
+                }
+                break;
+
+            case PlayerType.Enemy:
+                if (LevelShiftHandler.Instance.startGame)
+                    this.transform.GetChild(0).transform.Rotate(0, 0, 1 * 10);
+
+                if (LevelShiftHandler.Instance.startGame && grounded)
+                {
+                    MoveLeft();
+                }
+                if (LevelShiftHandler.Instance.startGame && grounded && goLeft)
+                {
+
+                    MoveLeft();
+
+                }
+                else if (goRight)
+                {
+
+                    MoveRight();
+                }
+                break;
         }
-        if (LevelShiftHandler.Instance.startGame && grounded && goLeft)
-        {
-
-            MoveLeft();
-
-        }
-        else if (goRight) {
-            MoveRight();
-        }
-
-
-
 
         //switch (_currentInstruction)
         //{
@@ -140,130 +173,13 @@ public class PlayerController : MonoBehaviour
         //}
     }
 
-    private bool CheckForObstacle()
-    {
-        // Collider2D collider2D= Physics2D.OverlapCircle(transform.position, obstacleCheckRadius, whatIsObstacle);
-        RaycastHit2D[] raycastHitArray = Physics2D.RaycastAll(raycastPosition.position, _raycastDirection, rayDistance);
-        foreach (RaycastHit2D raycastHit in raycastHitArray)
-        {
-            if (raycastHit.collider.CompareTag("Moveable"))
-            {
-                _instruction.GetComponent<DragObject>().RestorePosition();
-                _currentInstruction = InstructionSet.Idle;
 
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private void Push()
-    {
-        RaycastHit2D[] raycastHitArray = Physics2D.RaycastAll(raycastPosition.position, _raycastDirection, rayDistance);
-        foreach (RaycastHit2D raycastHit in raycastHitArray)
-        {
-            if (raycastHit.collider.CompareTag("Moveable"))
-            {
-                raycastHit.collider.GetComponent<IMoveable>().Move(_raycastDirection);
-                _rigidbody.velocity = new Vector2(_raycastDirection.x * moveSpeed, _rigidbody.velocity.y);
-                return;
-            }
-        }
-        _instruction.GetComponent<DragObject>().RestorePosition();
-        _currentInstruction = InstructionSet.Idle;
-    }
-    
-    private void MoveLeft()
-    {
-        if (isFacingRight)
-        {
-            Flip();
-            _raycastDirection = Vector2.left;
-        }
-
-        if (!CheckForObstacle())
-        {
-            _rigidbody.velocity = new Vector2(-1 * moveSpeed, _rigidbody.velocity.y);    
-        }
-        
-    }
-
-    private void MoveRight()
-    {
-        if (!isFacingRight)
-        {
-            Flip();
-            _raycastDirection = Vector2.right;
-        }
-
-        if (!CheckForObstacle())
-        {
-            _rigidbody.velocity = new Vector2(1 * moveSpeed, _rigidbody.velocity.y);    
-        }
-    }
-
-    private void Stop()
-    {
-        _rigidbody.velocity = new Vector2(0 * moveSpeed, _rigidbody.velocity.y);
-    }
-    
-    private void Movement()
-    {
-        
-        float moveInput = Input.GetAxisRaw("Horizontal");
-
-        _rigidbody.velocity = new Vector2(moveInput * moveSpeed, _rigidbody.velocity.y);
-
-        if (moveInput > 0 && !isFacingRight)
-        {
-            Flip();
-        }
-        else if (moveInput < 0 && isFacingRight)
-        {
-            Flip();
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
-        }
-    }
-    
-    private void Flip()
-    {
-        isFacingRight = !isFacingRight;
-        Transform playerBody = transform.Find("body").GetComponent<Transform>();
-        Transform playerHat = transform.Find("hat").GetComponent<Transform>();
-        Vector2 scale = playerBody.localScale;
-        scale.x *= -1;
-        playerBody.localScale = scale;
-        playerHat.localScale = scale;
-    }
-
-    private void Jump()
-    {
-        bool isGrounded = Physics2D.OverlapCircle(transform.position, groundCheckRadius, whatIsGround);
-        // Debug.Log(isGrounded);
-        if (isGrounded)
-        {
-            if (isFacingRight)
-            {
-                _rigidbody.velocity = new Vector2(1 * moveSpeed / 2, jumpForce);
-            }
-            else
-            {
-                _rigidbody.velocity = new Vector2(-1 * moveSpeed / 2, jumpForce);
-            }
-                
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Spring"))
         {
-            _rigidbody.velocity = Vector2.up * jumpForce;
+            NewJump();
             print("Jump");
         }
     }
@@ -271,11 +187,10 @@ public class PlayerController : MonoBehaviour
     {
         if (other.collider.CompareTag("Spike"))
         {
-            UIManager.Instance.ShowCompletionMessage();
-            
-
+            UIManager.Instance.ShowCompletionMessage();           
             Destroy(this.gameObject);
-            Time.timeScale = 0;
+            CamShake.Instance.ShakeIt();
+            
         }
 
         if (other.collider.CompareTag("Door"))
@@ -319,5 +234,131 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, obstacleCheckRadius);
         Gizmos.color = Color.green;
+    }
+
+
+    private bool CheckForObstacle()
+    {
+        // Collider2D collider2D= Physics2D.OverlapCircle(transform.position, obstacleCheckRadius, whatIsObstacle);
+        RaycastHit2D[] raycastHitArray = Physics2D.RaycastAll(raycastPosition.position, _raycastDirection, rayDistance);
+        foreach (RaycastHit2D raycastHit in raycastHitArray)
+        {
+            if (raycastHit.collider.CompareTag("Moveable"))
+            {
+                _instruction.GetComponent<DragObject>().RestorePosition();
+                _currentInstruction = InstructionSet.Idle;
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void Push()
+    {
+        RaycastHit2D[] raycastHitArray = Physics2D.RaycastAll(raycastPosition.position, _raycastDirection, rayDistance);
+        foreach (RaycastHit2D raycastHit in raycastHitArray)
+        {
+            if (raycastHit.collider.CompareTag("Moveable"))
+            {
+                raycastHit.collider.GetComponent<IMoveable>().Move(_raycastDirection);
+                _rigidbody.velocity = new Vector2(_raycastDirection.x * moveSpeed, _rigidbody.velocity.y);
+                return;
+            }
+        }
+        _instruction.GetComponent<DragObject>().RestorePosition();
+        _currentInstruction = InstructionSet.Idle;
+    }
+
+    private void MoveLeft()
+    {
+        if (isFacingRight)
+        {
+            Flip();
+            _raycastDirection = Vector2.left;
+        }
+
+        if (!CheckForObstacle())
+        {
+            _rigidbody.velocity = new Vector2(-1 * moveSpeed, _rigidbody.velocity.y);
+        }
+
+    }
+
+    private void MoveRight()
+    {
+        if (!isFacingRight)
+        {
+            Flip();
+            _raycastDirection = Vector2.right;
+        }
+
+        if (!CheckForObstacle())
+        {
+            _rigidbody.velocity = new Vector2(1 * moveSpeed, _rigidbody.velocity.y);
+        }
+    }
+
+    private void Stop()
+    {
+        _rigidbody.velocity = new Vector2(0 * moveSpeed, _rigidbody.velocity.y);
+    }
+
+    private void Movement()
+    {
+
+        float moveInput = Input.GetAxisRaw("Horizontal");
+
+        _rigidbody.velocity = new Vector2(moveInput * moveSpeed, _rigidbody.velocity.y);
+
+        if (moveInput > 0 && !isFacingRight)
+        {
+            Flip();
+        }
+        else if (moveInput < 0 && isFacingRight)
+        {
+            Flip();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
+    }
+
+    private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        Transform playerBody = transform.Find("body").GetComponent<Transform>();
+        Transform playerHat = transform.Find("hat").GetComponent<Transform>();
+        Vector2 scale = playerBody.localScale;
+        scale.x *= -1;
+        playerBody.localScale = scale;
+        playerHat.localScale = scale;
+    }
+
+    private void Jump()
+    {
+        bool isGrounded = Physics2D.OverlapCircle(transform.position, groundCheckRadius, whatIsGround);
+        // Debug.Log(isGrounded);
+        if (isGrounded)
+        {
+            if (isFacingRight)
+            {
+                _rigidbody.velocity = new Vector2(1 * moveSpeed / 2, jumpForce);
+            }
+            else
+            {
+                _rigidbody.velocity = new Vector2(-1 * moveSpeed / 2, jumpForce);
+            }
+
+        }
+    }
+
+
+    private void NewJump()
+    {
+        _rigidbody.velocity = Vector2.up * jumpForce;
     }
 }

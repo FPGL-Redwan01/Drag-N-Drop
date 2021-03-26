@@ -9,7 +9,7 @@ public class DragObject : MonoBehaviour
     private Vector3 _initialPosition;
     private Transform _parentTransform;
     [SerializeField] private float checkRadius;
-   public bool placed;
+    public bool placed;
     private void Start()
     {
         _initialPosition = transform.position;
