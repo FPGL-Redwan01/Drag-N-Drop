@@ -98,10 +98,7 @@ public class PlayerController : MonoBehaviour
        if (LevelShiftHandler.Instance.startGame && LevelShiftHandler.Instance.stageFlipped && grounded)
         {
             this.transform.DOLocalRotate(new Vector3(0, 0, 180), 0f);
-            MoveLeft();
-
-            print("asdasd");
-
+            MoveLeft();        
 
         }
 
@@ -259,11 +256,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Spring"))
+        {
+            _rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            print("Jump");
+        }
+    }
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.collider.CompareTag("Spike"))
         {
             UIManager.Instance.ShowCompletionMessage();
+            
+
             Destroy(this.gameObject);
             Time.timeScale = 0;
         }

@@ -9,6 +9,7 @@ TagManager:
   - Spike
   - Door
   - Ground
+  - Spring
   layers:
   - Default
   - TransparentFX

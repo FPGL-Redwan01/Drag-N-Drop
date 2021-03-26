@@ -26,7 +26,7 @@ public class LevelShiftHandler : MonoBehaviour
     public void RotateStage()
     {
         stageFlipped = true;
-        this.transform.DORotate(new Vector3(0, 0, 180), 1f);
+        this.transform.DORotate(new Vector3(0, 0, 180), 1f ).SetEase(Ease.InOutBack);
         
 
     }

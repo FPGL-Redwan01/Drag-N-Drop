@@ -43,7 +43,7 @@ public class DragObject : MonoBehaviour
                 }
             }
         }
-        RestorePosition();
+       // RestorePosition();
     }
 
     private void Update()
