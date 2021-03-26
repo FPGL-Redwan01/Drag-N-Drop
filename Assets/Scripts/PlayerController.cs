@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D _rigidbody;
-    [SerializeField] private float moveSpeed;
+    public static PlayerController Instance { get; private set; }
+
+    public Rigidbody2D _rigidbody;
+    [SerializeField] public float moveSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private float obstacleCheckRadius;
@@ -16,7 +18,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rayDistance;
     private Vector2 _raycastDirection;
     private Transform _instruction;
-
+    int mask = 1 << 8;
+   public bool grounded;
     private enum InstructionSet
     {
         Idle,
@@ -27,9 +30,14 @@ public class PlayerController : MonoBehaviour
     }
     
     private InstructionSet _currentInstruction;
-
-    private void Start()
+    private void Awake()
     {
+        Instance = this;
+
+    }
+        private void Start()
+    {
+        grounded = false;
         _currentInstruction = InstructionSet.Idle;
         _rigidbody = GetComponent<Rigidbody2D>();
         InstructionManager.Instance.OnInstructionGiven += DragObject_OnInstructionGiven;
@@ -78,36 +86,58 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        switch (_currentInstruction)
+
+        if (LevelShiftHandler.Instance.startGame && ! LevelShiftHandler.Instance.stageFlipped && grounded)
         {
-            case InstructionSet.Idle:
-            {
-                Stop();
-                break;
-            }
-            case InstructionSet.Left:
-            {
-                MoveLeft();
-                break;
-            }
-            case InstructionSet.Right:
-            {
-                MoveRight();
-                break;
-            }
-            case InstructionSet.Jump:
-            {
-                Jump();
-                break;
-            }
-            case InstructionSet.Push:
-            {
-                Push();
-                break;
-            }
-            default:
-                break;
+
+            MoveRight();
+            
+
+
         }
+       if (LevelShiftHandler.Instance.startGame && LevelShiftHandler.Instance.stageFlipped && grounded)
+        {
+            this.transform.DOLocalRotate(new Vector3(0, 0, 180), 0f);
+            MoveLeft();
+
+            print("asdasd");
+
+
+        }
+
+
+
+
+        //switch (_currentInstruction)
+        //{
+        //    case InstructionSet.Idle:
+        //    {
+        //        Stop();
+        //        break;
+        //    }
+        //    case InstructionSet.Left:
+        //    {
+        //        MoveLeft();
+        //        break;
+        //    }
+        //    case InstructionSet.Right:
+        //    {
+        //        MoveRight();
+        //        break;
+        //    }
+        //    case InstructionSet.Jump:
+        //    {
+        //        Jump();
+        //        break;
+        //    }
+        //    case InstructionSet.Push:
+        //    {
+        //        Push();
+        //        break;
+        //    }
+        //    default:
+        //        break;
+        //}
     }
 
     private bool CheckForObstacle()
@@ -242,6 +272,21 @@ public class PlayerController : MonoBehaviour
         {
             UIManager.Instance.ShowCompletionMessage("Level Complete");
             Time.timeScale = 0;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.collider.CompareTag("Ground"))
+        {
+            grounded = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.collider.CompareTag("Ground"))
+        {
+            grounded = false;
         }
     }
 
