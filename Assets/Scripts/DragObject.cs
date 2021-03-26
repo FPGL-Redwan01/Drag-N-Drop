@@ -9,7 +9,7 @@ public class DragObject : MonoBehaviour
     private Vector3 _initialPosition;
     private Transform _parentTransform;
     [SerializeField] private float checkRadius;
-
+   public bool placed;
     private void Start()
     {
         _initialPosition = transform.position;
@@ -28,6 +28,7 @@ public class DragObject : MonoBehaviour
 
     private void OnMouseUp()
     {
+        placed = true;
         Collider2D[] collider2DArray = Physics2D.OverlapCircleAll(transform.position, checkRadius);
         
         foreach (Collider2D collider2D in collider2DArray)
