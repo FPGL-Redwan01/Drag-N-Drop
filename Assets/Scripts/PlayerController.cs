@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 _raycastDirection;
     private Transform _instruction;
     int mask = 1 << 8;
-   public bool grounded;
+    public bool grounded, goLeft, goRight;
     private enum InstructionSet
     {
         Idle,
@@ -86,20 +86,23 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-
-        if (LevelShiftHandler.Instance.startGame && ! LevelShiftHandler.Instance.stageFlipped && grounded)
+       
+        if (LevelShiftHandler.Instance.startGame  && grounded)
         {
 
             MoveRight();
-            
+            this.transform.GetChild(0).transform.Rotate(0, 0, 1);
 
 
         }
-       if (LevelShiftHandler.Instance.startGame && LevelShiftHandler.Instance.stageFlipped && grounded)
+        if (LevelShiftHandler.Instance.startGame && grounded && goLeft)
         {
-            this.transform.DOLocalRotate(new Vector3(0, 0, 180), 0f);
-            MoveLeft();        
 
+            MoveLeft();
+
+        }
+        else if (goRight) {
+            MoveRight();
         }
 
 
@@ -260,7 +263,7 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Spring"))
         {
-            _rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            _rigidbody.velocity = Vector2.up * jumpForce;
             print("Jump");
         }
     }
@@ -279,6 +282,17 @@ public class PlayerController : MonoBehaviour
         {
             UIManager.Instance.ShowCompletionMessage("Level Complete");
             Time.timeScale = 0;
+        }
+        if(other.gameObject.CompareTag("Left"))
+        {
+            goLeft = true;
+            goRight = false;
+            LevelShiftHandler.Instance.spring.SetActive(false);
+        }
+        if (other.gameObject.CompareTag("Right"))
+        {
+            goLeft = false;
+            goRight = true;
         }
     }
 

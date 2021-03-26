@@ -7,6 +7,7 @@ public class LevelShiftHandler : MonoBehaviour
     // Start is called before the first frame update
  //   [HideInInspector]
     public bool stageFlipped,startGame ;
+    public GameObject spring;
 
     public static LevelShiftHandler Instance { get; private set; }
     void Start()
@@ -33,6 +34,7 @@ public class LevelShiftHandler : MonoBehaviour
 
     public void Play()
     {
+        spring.GetComponent<Animator>().Play("Spring");
         startGame = true;
         PlayerController.Instance._rigidbody.gravityScale = 1;
         PlayerController.Instance.moveSpeed = 6;
