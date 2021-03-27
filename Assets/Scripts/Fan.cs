@@ -35,7 +35,7 @@ public class Fan : MonoBehaviour
                 float angle = Vector2.Angle(forceDirection, transform.up);
                 if (angle <= forceAngle)
                 {
-                    balloon.AddForceToDirection(forceDirection,50f);
+                    balloon.AddForceToDirection(forceDirection,30f);
                     // Debug.Log("Force Applied");
                 }
                 else
