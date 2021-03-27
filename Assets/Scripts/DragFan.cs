@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class DragFan : MonoBehaviour
 {
+  
+
     [SerializeField] private float checkRadius;
     [SerializeField] private float offset;
     private Vector3 _mouseOffset;
-    private Vector3 _initialPosition;
-    private bool _isPlacedCorrectly;
+    private Vector3 _initialPosition;  
     private Transform _windFlowIndicatorPos;
     private Transform _windFlowIndicatorNeg;
     private Fan _fan;
-
+    [HideInInspector]
+    public bool _isPlacedCorrectly;
     private void Awake()
     {
+
         _initialPosition = transform.position;
         _windFlowIndicatorPos = transform.Find("windflowPos");
         _windFlowIndicatorNeg = transform.Find("windflowNeg");
@@ -43,7 +46,7 @@ public class DragFan : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                Destroy(this);
+              //  Destroy(this);
             }    
         }
     }

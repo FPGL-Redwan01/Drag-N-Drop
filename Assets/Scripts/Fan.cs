@@ -8,10 +8,18 @@ public class Fan : MonoBehaviour
 {
     [SerializeField] private float forceRadius;
     public float forceAngle;
+    public DragFan df;
 
+
+    private void Start()
+    {
+        df = GetComponent<DragFan>();
+    }
     private void Update()
     {
-        PushBalloon();
+        if (df._isPlacedCorrectly)
+            PushBalloon();
+
     }
     
     private void PushBalloon()
