@@ -54,6 +54,7 @@ public class DragFan : MonoBehaviour
     private void OnMouseDown()
     {
         _mouseOffset = transform.position - UtilsClass.GetMouseWorldPosition();
+        _isPlacedCorrectly = false;
     }
 
     private void OnMouseDrag()
@@ -80,6 +81,7 @@ public class DragFan : MonoBehaviour
         if (!_isPlacedCorrectly)
         {
             transform.position = _initialPosition;
+           
             return;
         }
     }
