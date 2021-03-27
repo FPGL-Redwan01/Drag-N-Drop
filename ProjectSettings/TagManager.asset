@@ -12,6 +12,7 @@ TagManager:
   - Spring
   - Left
   - Right
+  - Border
   layers:
   - Default
   - TransparentFX

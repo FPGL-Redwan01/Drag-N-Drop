@@ -96,81 +96,81 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-     switch(type)
+     // switch(type)
+     //    {
+     //        case PlayerType.Player:
+     //            if (LevelShiftHandler.Instance.startGame)
+     //                this.transform.GetChild(0).transform.Rotate(0, 0, 1 * 10);
+     //
+     //            if (LevelShiftHandler.Instance.startGame && grounded)
+     //            {
+     //                MoveRight();
+     //            }
+     //            if (LevelShiftHandler.Instance.startGame && grounded && goLeft)
+     //            {
+     //
+     //                MoveLeft();
+     //
+     //            }
+     //            else if (goRight)
+     //            {
+     //
+     //                MoveRight();
+     //            }
+     //            break;
+     //
+     //        case PlayerType.Enemy:
+     //            if (LevelShiftHandler.Instance.startGame)
+     //                this.transform.GetChild(0).transform.Rotate(0, 0, 1 * 10);
+     //
+     //            if (LevelShiftHandler.Instance.startGame && grounded)
+     //            {
+     //                MoveLeft();
+     //            }
+     //            if (LevelShiftHandler.Instance.startGame && grounded && goLeft)
+     //            {
+     //
+     //                MoveLeft();
+     //
+     //            }
+     //            else if (goRight)
+     //            {
+     //
+     //                MoveRight();
+     //            }
+     //            break;
+     //    }
+
+        switch (_currentInstruction)
         {
-            case PlayerType.Player:
-                if (LevelShiftHandler.Instance.startGame)
-                    this.transform.GetChild(0).transform.Rotate(0, 0, 1 * 10);
-
-                if (LevelShiftHandler.Instance.startGame && grounded)
-                {
-                    MoveRight();
-                }
-                if (LevelShiftHandler.Instance.startGame && grounded && goLeft)
-                {
-
-                    MoveLeft();
-
-                }
-                else if (goRight)
-                {
-
-                    MoveRight();
-                }
+            case InstructionSet.Idle:
+            {
+                Stop();
                 break;
-
-            case PlayerType.Enemy:
-                if (LevelShiftHandler.Instance.startGame)
-                    this.transform.GetChild(0).transform.Rotate(0, 0, 1 * 10);
-
-                if (LevelShiftHandler.Instance.startGame && grounded)
-                {
-                    MoveLeft();
-                }
-                if (LevelShiftHandler.Instance.startGame && grounded && goLeft)
-                {
-
-                    MoveLeft();
-
-                }
-                else if (goRight)
-                {
-
-                    MoveRight();
-                }
+            }
+            case InstructionSet.Left:
+            {
+                MoveLeft();
+                break;
+            }
+            case InstructionSet.Right:
+            {
+                MoveRight();
+                break;
+            }
+            case InstructionSet.Jump:
+            {
+                Jump();
+                break;
+            }
+            case InstructionSet.Push:
+            {
+                Push();
+                break;
+            }
+            default:
                 break;
         }
-
-        //switch (_currentInstruction)
-        //{
-        //    case InstructionSet.Idle:
-        //    {
-        //        Stop();
-        //        break;
-        //    }
-        //    case InstructionSet.Left:
-        //    {
-        //        MoveLeft();
-        //        break;
-        //    }
-        //    case InstructionSet.Right:
-        //    {
-        //        MoveRight();
-        //        break;
-        //    }
-        //    case InstructionSet.Jump:
-        //    {
-        //        Jump();
-        //        break;
-        //    }
-        //    case InstructionSet.Push:
-        //    {
-        //        Push();
-        //        break;
-        //    }
-        //    default:
-        //        break;
-        //}
     }
 
 
