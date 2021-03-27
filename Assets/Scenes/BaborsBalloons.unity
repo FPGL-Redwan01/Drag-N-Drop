@@ -1950,8 +1950,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68396ef4b5411a94ca1b6cd0224a3774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baloon: {fileID: 295091637}
   checkRadius: 0.05
   offset: -90
+  _isPlacedCorrectly: 0
 --- !u!114 &2004512824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1966,6 +1968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceRadius: 5.41
   forceAngle: 30
+  df: {fileID: 0}
 --- !u!58 &2004512825
 CircleCollider2D:
   m_ObjectHideFlags: 0
