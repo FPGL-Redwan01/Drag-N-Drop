@@ -13,7 +13,7 @@ public class Balloon : MonoBehaviour
 
     [Header("FX")]
     public GameObject confetti;
-
+    public GameObject popEffect;
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -67,14 +67,21 @@ public class Balloon : MonoBehaviour
         if (other.collider.CompareTag("Spike"))
         {
             UIManager.Instance.ShowCompletionMessage();
-            Time.timeScale = 0;
+            SoundManager.sharedInstance.PlaySFX(SoundManager.sharedInstance.popSFX);           
+            GameObject g = Instantiate(popEffect, this.transform.position, Quaternion.identity);
+            Destroy(g, 2);
+            Destroy(this.gameObject);
+            FindObjectOfType<DragFan>().sfxAuidoSource.Pause();
         }
         if (other.collider.CompareTag("Door"))
         {
             UIManager.Instance.ShowCompletionMessage();
-            transform.GetChild(0).gameObject.SetActive(false);
+            
             GameObject fireWork = Instantiate(confetti , doorTransform.position , Quaternion.identity);
             Destroy(fireWork, 5);
+            FindObjectOfType<DragFan>().sfxAuidoSource.Pause();
+            SoundManager.sharedInstance.PlaySFX(SoundManager.sharedInstance.levelComSFX);
+            Destroy(this.gameObject);
         }
 
 

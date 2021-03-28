@@ -6,7 +6,7 @@ using UnityEngine;
 public class DragFan : MonoBehaviour
 {
 
-
+    public GameObject normalFan, draggedFan;
     public Transform baloon;
     public GameObject blowParticles;
     [SerializeField] private float checkRadius;
@@ -18,6 +18,9 @@ public class DragFan : MonoBehaviour
     private Fan _fan;
     [HideInInspector]
     public bool _isPlacedCorrectly;
+
+    public AudioSource sfxAuidoSource;
+
     private void Awake()
     {
 
@@ -36,9 +39,13 @@ public class DragFan : MonoBehaviour
 
     private void Update()
     {
+
+
+
         if (_isPlacedCorrectly)
         {
-            transform.GetChild(6).Rotate(0, 0, 1 * 2);
+       
+           normalFan.transform.GetChild(2).Rotate(0, 0, 1 * 2);
             blowParticles.SetActive(true);
             _windFlowIndicatorPos.gameObject.SetActive(true);
             _windFlowIndicatorNeg.gameObject.SetActive(true);
@@ -59,10 +66,12 @@ public class DragFan : MonoBehaviour
     {
         _mouseOffset = transform.position - UtilsClass.GetMouseWorldPosition();
         _isPlacedCorrectly = false;
+        sfxAuidoSource.Pause();
     }
 
     private void OnMouseDrag()
     {
+
         blowParticles.SetActive(false);
         transform.position = UtilsClass.GetMouseWorldPosition() + _mouseOffset;
         Vector3 direction = baloon.position - transform.position;
@@ -82,6 +91,8 @@ public class DragFan : MonoBehaviour
             }
             if (collider2D.CompareTag("Border"))
             {
+                SoundManager.sharedInstance.PlaySFX(SoundManager.sharedInstance.fanSetSFX);
+                sfxAuidoSource.Play();
                 _isPlacedCorrectly = true;
             }
         }
@@ -89,6 +100,23 @@ public class DragFan : MonoBehaviour
         if (!_isPlacedCorrectly)
         {
             transform.position = _initialPosition;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Border"))
+        {
+            normalFan.SetActive(true);
+            draggedFan.SetActive(false);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Border"))
+        {
+            normalFan.SetActive(false);
+            draggedFan.SetActive(true);
         }
     }
 
