@@ -8,6 +8,7 @@ public class DragFan : MonoBehaviour
 
 
     public Transform baloon;
+    public GameObject blowParticles;
     [SerializeField] private float checkRadius;
     [SerializeField] private float offset;
     private Vector3 _mouseOffset;
@@ -37,6 +38,8 @@ public class DragFan : MonoBehaviour
     {
         if (_isPlacedCorrectly)
         {
+            transform.GetChild(6).Rotate(0, 0, 1 * 2);
+            blowParticles.SetActive(true);
             _windFlowIndicatorPos.gameObject.SetActive(true);
             _windFlowIndicatorNeg.gameObject.SetActive(true);
             _windFlowIndicatorPos.transform.localEulerAngles = new Vector3(0, 0, _fan.forceAngle);
@@ -60,6 +63,7 @@ public class DragFan : MonoBehaviour
 
     private void OnMouseDrag()
     {
+        blowParticles.SetActive(false);
         transform.position = UtilsClass.GetMouseWorldPosition() + _mouseOffset;
         Vector3 direction = baloon.position - transform.position;
         // Debug.DrawRay(transform.position, direction);
