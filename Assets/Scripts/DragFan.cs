@@ -89,8 +89,6 @@ public class DragFan : MonoBehaviour
         if (!_isPlacedCorrectly)
         {
             transform.position = _initialPosition;
-           
-            return;
         }
     }
 
