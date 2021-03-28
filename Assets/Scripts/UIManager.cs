@@ -11,25 +11,27 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject levelCompletionMessage;
     //private TextMeshProUGUI _message;
     private Image _image;
+    public GameObject levelEnd;
 
     private void Awake()
     {
         Instance = this;
-     //   _message = levelCompletionMessage.transform.Find("text").GetComponent<TextMeshProUGUI>();
+
         _image = levelCompletionMessage.transform.Find("image").GetComponent<Image>();
         levelCompletionMessage.SetActive(false);
     }
 
     public void ShowCompletionMessage(string message)
     {
-      //  _message.text = message;
+
         levelCompletionMessage.SetActive(true);
         _image.gameObject.SetActive(false);
     }
     public void ShowCompletionMessage()
     {
-       // _message.text = "";
+        levelEnd.SetActive(true);
+      
         levelCompletionMessage.SetActive(true);
-      //  _message.gameObject.SetActive(false);
+  
     }
 }

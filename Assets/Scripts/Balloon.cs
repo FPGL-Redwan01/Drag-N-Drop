@@ -10,6 +10,10 @@ public class Balloon : MonoBehaviour
     [SerializeField] private float checkDistance;
     private Rigidbody2D _rigidbody;
 
+
+    [Header("FX")]
+    public GameObject confetti;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -67,9 +71,17 @@ public class Balloon : MonoBehaviour
         }
         if (other.collider.CompareTag("Door"))
         {
-            UIManager.Instance.ShowCompletionMessage("Level Completed");
-            Time.timeScale = 0;
+            UIManager.Instance.ShowCompletionMessage();
+            transform.GetChild(0).gameObject.SetActive(false);
+            GameObject fireWork = Instantiate(confetti , doorTransform.position , Quaternion.identity);
+            Destroy(fireWork, 5);
         }
+
+
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
     }
 
     private void OnDrawGizmos()
