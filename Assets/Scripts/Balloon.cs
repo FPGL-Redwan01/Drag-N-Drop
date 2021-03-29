@@ -90,7 +90,7 @@ public class Balloon : MonoBehaviour
             SoundManager.sharedInstance.PlaySFX(SoundManager.sharedInstance.levelComSFX);
             this.transform.GetChild(0).gameObject.SetActive(false);
             this.GetComponent<CircleCollider2D>().enabled = false;
-            StartCoroutine(GoToNextScene());
+           
         }
 
 
@@ -114,15 +114,7 @@ public class Balloon : MonoBehaviour
         SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 
-    IEnumerator GoToNextScene()
-    {
-        yield return new WaitForSeconds(2);
-     
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-          
-        
-    }
-  
+
 
 
 }
