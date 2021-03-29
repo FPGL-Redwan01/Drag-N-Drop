@@ -6103,6 +6103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 466412383}
   - component: {fileID: 466412384}
+  - component: {fileID: 466412385}
   m_Layer: 0
   m_Name: EXIT
   m_TagString: Door
@@ -6154,6 +6155,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5681381, y: 1.7028451}
   m_EdgeRadius: 0
+--- !u!114 &466412385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466412382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ef14edd1484b34ab4e8dd8f63f111e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextSceneLoad: 0
 --- !u!1 &467173083
 GameObject:
   m_ObjectHideFlags: 0
