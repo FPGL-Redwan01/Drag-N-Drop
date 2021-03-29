@@ -24,7 +24,7 @@ public class DragFan : MonoBehaviour
     private void Awake()
     {
 
-        _initialPosition = transform.position;
+       
         _windFlowIndicatorPos = transform.Find("windflowPos");
         _windFlowIndicatorNeg = transform.Find("windflowNeg");
         
@@ -44,8 +44,8 @@ public class DragFan : MonoBehaviour
 
         if (_isPlacedCorrectly)
         {
-       
-           normalFan.transform.GetChild(2).Rotate(0, 0, 1 * 2);
+            _initialPosition = transform.position;
+            normalFan.transform.GetChild(2).Rotate(0, 0, 1 * 2);
             blowParticles.SetActive(true);
             _windFlowIndicatorPos.gameObject.SetActive(true);
             _windFlowIndicatorNeg.gameObject.SetActive(true);

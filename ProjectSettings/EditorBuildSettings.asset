@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/BaborsBalloons 1.unity
+    path: Assets/Scenes/Level2.unity
     guid: 9758d6ed2de57714c835f609f74768af
   m_configObjects: {}
