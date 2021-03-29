@@ -7,17 +7,15 @@ using UnityEngine.SceneManagement;
 public class Balloon : MonoBehaviour
 {
     [SerializeField] private float upForce;
-    [SerializeField] private Transform doorTransform;
     [SerializeField] private float checkDistance;
+    [SerializeField] private Transform doorTransform;
     private Rigidbody2D _rigidbody;
 
 
     [Header("FX")]
     public GameObject confetti;
     public GameObject popEffect;
-
-
-    public bool moveToTarget = false;
+    
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -26,8 +24,11 @@ public class Balloon : MonoBehaviour
     private void FixedUpdate()
     {
         MoveBalloon();
-        if(!moveToTarget)
-        AddForceWhileAtTheTop();
+        Debug.Log(CanMoveToTarget(doorTransform));
+        if (CanMoveToTarget(doorTransform))
+        {
+            AddForceWhileAtTheTop(doorTransform);
+        }
     }
 
     private void MoveBalloon()
@@ -41,20 +42,33 @@ public class Balloon : MonoBehaviour
             _rigidbody.AddForce(Vector2.down * upForce, ForceMode2D.Force);
         }
     }
+
+    private bool CanMoveToTarget(Transform targetTransform)
+    {
+        RaycastHit2D[] raycastHitArray = Physics2D.LinecastAll(transform.position, targetTransform.position);
+        foreach (RaycastHit2D raycastHit in raycastHitArray)
+        {
+            if (raycastHit.collider.CompareTag("Border"))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     
-    private void AddForceWhileAtTheTop()
+    private void AddForceWhileAtTheTop(Transform targetTransform)
     {
         RaycastHit2D[] raycastHitArray = Physics2D.RaycastAll(transform.position, Vector2.up, checkDistance);
         foreach (RaycastHit2D raycastHit in raycastHitArray)
         {
             if (raycastHit.collider.CompareTag("Border"))
             {
-                Vector2 direction = doorTransform.position - transform.position;
-                if (Mathf.Abs(_rigidbody.velocity.x) < 1f)
+                Vector2 direction = targetTransform.position - transform.position;
+                if (Mathf.Abs(_rigidbody.velocity.x) < .5f)
                 {
                     _rigidbody.AddForce(direction * upForce * Time.deltaTime, ForceMode2D.Force);    
                 }
-                else if (Mathf.Abs(_rigidbody.velocity.x) > 2f)
+                else if (Mathf.Abs(_rigidbody.velocity.x) > 1f)
                 {
                     _rigidbody.AddForce(-direction * upForce * Time.deltaTime, ForceMode2D.Force);
                 }
@@ -103,6 +117,9 @@ public class Balloon : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawRay(transform.position, Vector3.up * checkDistance);
+        Gizmos.color=Color.red;
+        Gizmos.DrawLine(transform.position, doorTransform.position);
+        Gizmos.color=Color.green;
     }
 
 
