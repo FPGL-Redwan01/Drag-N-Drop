@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Balloon : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class Balloon : MonoBehaviour
     [Header("FX")]
     public GameObject confetti;
     public GameObject popEffect;
+
+
+    public bool moveToTarget = false;
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -22,6 +26,7 @@ public class Balloon : MonoBehaviour
     private void FixedUpdate()
     {
         MoveBalloon();
+        if(!moveToTarget)
         AddForceWhileAtTheTop();
     }
 
@@ -66,22 +71,26 @@ public class Balloon : MonoBehaviour
     {
         if (other.collider.CompareTag("Spike"))
         {
-            UIManager.Instance.ShowCompletionMessage();
+
+            UIManager.Instance.Invoke("ShowCompletionMessage", 1f);
             SoundManager.sharedInstance.PlaySFX(SoundManager.sharedInstance.popSFX);           
             GameObject g = Instantiate(popEffect, this.transform.position, Quaternion.identity);
             Destroy(g, 2);
-            Destroy(this.gameObject);
+            this.transform.GetChild(0).gameObject.SetActive(false);
+            this.GetComponent<CircleCollider2D>().enabled = false;
             FindObjectOfType<DragFan>().sfxAuidoSource.Pause();
+            StartCoroutine(restartCurrentScene());
         }
         if (other.collider.CompareTag("Door"))
         {
-            UIManager.Instance.ShowCompletionMessage();
-            
+            UIManager.Instance.ShowCompletionMessage();            
             GameObject fireWork = Instantiate(confetti , doorTransform.position , Quaternion.identity);
             Destroy(fireWork, 5);
             FindObjectOfType<DragFan>().sfxAuidoSource.Pause();
             SoundManager.sharedInstance.PlaySFX(SoundManager.sharedInstance.levelComSFX);
-            Destroy(this.gameObject);
+            this.transform.GetChild(0).gameObject.SetActive(false);
+            this.GetComponent<CircleCollider2D>().enabled = false;
+            StartCoroutine(GoToNextScene());
         }
 
 
@@ -95,4 +104,25 @@ public class Balloon : MonoBehaviour
     {
         Gizmos.DrawRay(transform.position, Vector3.up * checkDistance);
     }
+
+
+    IEnumerator restartCurrentScene()
+    {
+        yield return new WaitForSeconds(3);
+
+        int scene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
+    }
+
+    IEnumerator GoToNextScene()
+    {
+        yield return new WaitForSeconds(2);
+     
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+          
+        
+    }
+  
+
+
 }

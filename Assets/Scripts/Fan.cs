@@ -4,11 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum FanType
+{
+  Player, 
+  Bot
+
+}
+
 public class Fan : MonoBehaviour
 {
     [SerializeField] private float forceRadius;
     public float forceAngle;
     public DragFan df;
+    public FanType fanTypes = FanType.Player;
+    public float forcePower = 30f;
 
 
     private void Start()
@@ -17,9 +26,18 @@ public class Fan : MonoBehaviour
     }
     private void Update()
     {
-        if (df._isPlacedCorrectly)
+        if (fanTypes == FanType.Player)
+        {
+
+            if (df._isPlacedCorrectly)
+                PushBalloon();
+        }
+       else if (fanTypes == FanType.Bot)
+        {
+            this.transform.GetChild(0).Rotate(0, 0, 1 * 2);
             PushBalloon();
 
+        }
     }
     
     private void PushBalloon()
@@ -35,7 +53,7 @@ public class Fan : MonoBehaviour
                 float angle = Vector2.Angle(forceDirection, transform.up);
                 if (angle <= forceAngle)
                 {
-                    balloon.AddForceToDirection(forceDirection,30f);
+                    balloon.AddForceToDirection(forceDirection,forcePower);
                     // Debug.Log("Force Applied");
                 }
                 else

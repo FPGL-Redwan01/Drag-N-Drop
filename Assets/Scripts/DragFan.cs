@@ -71,15 +71,16 @@ public class DragFan : MonoBehaviour
 
     private void OnMouseDrag()
     {
+        if (baloon.position != null)
+        {
+
 
         blowParticles.SetActive(false);
         transform.position = UtilsClass.GetMouseWorldPosition() + _mouseOffset;
-        if (baloon.position != null)
-        {
-            Vector3 direction = baloon.position - transform.position;
+        Vector3 direction = baloon.position - transform.position;
 
             // Debug.DrawRay(transform.position, direction);
-            transform.localEulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVector(direction) + offset);
+        transform.localEulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVector(direction) + offset);
         }
     }
 
