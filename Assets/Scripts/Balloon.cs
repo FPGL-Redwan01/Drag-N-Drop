@@ -125,7 +125,7 @@ public class Balloon : MonoBehaviour
 
     IEnumerator restartCurrentScene()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(3.5f);
 
         int scene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(scene, LoadSceneMode.Single);

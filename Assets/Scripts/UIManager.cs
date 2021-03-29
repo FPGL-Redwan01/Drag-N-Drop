@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject levelCompletionMessage;
     //private TextMeshProUGUI _message;
     private Image _image;
-    public GameObject levelEnd;
+    public GameObject levelEnd , endTran;
 
     private void Awake()
     {
@@ -30,8 +30,13 @@ public class UIManager : MonoBehaviour
     public void ShowCompletionMessage()
     {
         levelEnd.SetActive(true);
-      
+        Invoke("EndTransition", 1.5f);
         levelCompletionMessage.SetActive(true);
   
+    }
+
+    public void EndTransition()
+    {
+        endTran.gameObject.SetActive(true);
     }
 }
