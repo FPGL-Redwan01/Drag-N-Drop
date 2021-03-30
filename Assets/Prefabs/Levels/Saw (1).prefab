@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7175982725564789604}
   - component: {fileID: 7175982725564789603}
   - component: {fileID: 7175982725564789602}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Saw (1)
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -95,6 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48914bfa96ba4fc47ab37994ca78469f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delta: 1.5
+  speed: 2
+  enableMovement: 0
 --- !u!58 &7175982725564789602
 CircleCollider2D:
   m_ObjectHideFlags: 0
