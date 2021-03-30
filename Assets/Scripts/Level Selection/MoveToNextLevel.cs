@@ -24,9 +24,9 @@ public class MoveToNextLevel : MonoBehaviour
     IEnumerator MoveToNext()
     {
         yield return new WaitForSeconds(3f);
-        if (SceneManager.GetActiveScene().buildIndex == 4)
+        if (SceneManager.GetActiveScene().buildIndex == 6)
         {
-            SceneManager.LoadScene(1);
+           SceneManager.LoadScene(0);
 
 
         }
@@ -36,7 +36,7 @@ public class MoveToNextLevel : MonoBehaviour
             SceneManager.LoadScene(nextSceneLoad);
 
 
-            if (nextSceneLoad > PlayerPrefs.GetInt("levelAt"))
+            if (nextSceneLoad + 2 > PlayerPrefs.GetInt("levelAt"))
             {
                 PlayerPrefs.SetInt("levelAt", nextSceneLoad);
             }
