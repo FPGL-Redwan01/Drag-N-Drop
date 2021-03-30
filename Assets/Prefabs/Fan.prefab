@@ -490,7 +490,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 2c1484249b3118e499d8d2241f332d26, type: 3}
   m_Color: {r: 0.4764151, g: 0.9028824, b: 1, a: 1}
   m_FlipX: 0
@@ -571,7 +571,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 2c1484249b3118e499d8d2241f332d26, type: 3}
   m_Color: {r: 0.4764151, g: 0.9028824, b: 1, a: 1}
   m_FlipX: 0
@@ -655,7 +655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceRadius: 2.62
   forceAngle: 30
-  df: {fileID: 0}
+  df: {fileID: 9121297211518071528}
   fanTypes: 0
   forcePower: 30
 --- !u!114 &9121297211518071528
@@ -976,7 +976,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: ffb2be38e01523e48bf62e3927d06564, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
