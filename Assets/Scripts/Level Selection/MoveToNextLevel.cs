@@ -24,7 +24,7 @@ public class MoveToNextLevel : MonoBehaviour
     IEnumerator MoveToNext()
     {
         yield return new WaitForSeconds(3f);
-        if (SceneManager.GetActiveScene().buildIndex == 6)
+        if (SceneManager.GetActiveScene().buildIndex == 7)
         {
            SceneManager.LoadScene(0);
 
