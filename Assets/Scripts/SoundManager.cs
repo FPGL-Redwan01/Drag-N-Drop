@@ -11,7 +11,7 @@ public class SoundManager : MonoBehaviour
     public bool soundOn;
     //=========================================
 
-    public AudioClip fanSetSFX , popSFX , levelComSFX;
+    public AudioClip fanSetSFX , popSFX , levelComSFX , happySFX , ashtonisedSFX;
 
     public static SoundManager SharedManager()
     {

@@ -30,6 +30,7 @@ public class StoryScript : MonoBehaviour
     }
     void MovePP()
     {
+        SoundManager.sharedInstance.PlaySFX(SoundManager.sharedInstance.ashtonisedSFX);
         pp.transform.DOMove(ppPos.position , 2).OnComplete(() =>
         {
             MoveMySelf();
@@ -49,8 +50,10 @@ public class StoryScript : MonoBehaviour
 
     void MoveMySelf()
     {
+    
         me.transform.DOMove(myPos.position, 3).OnComplete(() =>
         {
+            SoundManager.sharedInstance.PlaySFX(SoundManager.sharedInstance.happySFX);
             MoveDrone();
         });
     }
