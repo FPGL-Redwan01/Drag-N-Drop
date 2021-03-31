@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 146971005}
   - component: {fileID: 146971004}
   - component: {fileID: 146971006}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: balloon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ RectTransform:
   m_LocalScale: {x: 1.7671236, y: 3.2150576, z: 1.7032516}
   m_Children: []
   m_Father: {fileID: 1788601873}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -531,7 +531,7 @@ GameObject:
   - component: {fileID: 1614182053}
   - component: {fileID: 1614182055}
   - component: {fileID: 1614182054}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: fan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,7 @@ RectTransform:
   m_LocalScale: {x: 4.5574813, y: 2.8777845, z: 1.5245732}
   m_Children: []
   m_Father: {fileID: 1788601873}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 44.696003}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -902,8 +902,8 @@ RectTransform:
   - {fileID: 304023451}
   - {fileID: 1719356259}
   - {fileID: 1813558341}
-  - {fileID: 146971003}
   - {fileID: 1614182053}
+  - {fileID: 146971003}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
