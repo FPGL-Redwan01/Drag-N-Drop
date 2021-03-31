@@ -13,6 +13,18 @@ public class MoveToNextLevel : MonoBehaviour
         nextSceneLoad = SceneManager.GetActiveScene().buildIndex + 1;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
     private void OnCollisionEnter2D(Collision2D other)
 
     {
@@ -24,11 +36,9 @@ public class MoveToNextLevel : MonoBehaviour
     IEnumerator MoveToNext()
     {
         yield return new WaitForSeconds(3f);
-        if (SceneManager.GetActiveScene().buildIndex == 7)
+        if (SceneManager.GetActiveScene().buildIndex == 9)
         {
            SceneManager.LoadScene(0);
-
-
         }
         else
         {
