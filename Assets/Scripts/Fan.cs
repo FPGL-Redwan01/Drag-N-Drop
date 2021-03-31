@@ -15,21 +15,21 @@ public class Fan : MonoBehaviour
 {
     [SerializeField] private float forceRadius;
     public float forceAngle;
-    public DragFan df;
+    public DragFan dragFan;
     public FanType fanTypes = FanType.Player;
     public float forcePower = 30f;
 
 
     private void Start()
     {
-        df = GetComponent<DragFan>();
+        dragFan = GetComponent<DragFan>();
     }
     private void Update()
     {
         if (fanTypes == FanType.Player)
         {
 
-            if (df._isPlacedCorrectly)
+            if (dragFan.isPlacedCorrectly)
                 PushBalloon();
         }
        else if (fanTypes == FanType.Bot)

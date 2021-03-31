@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 126569653}
   - component: {fileID: 126569652}
   m_Layer: 0
-  m_Name: me
+  m_Name: Babor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -551,8 +551,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -235.06, y: -65.9}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -200, y: -65.9}
+  m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &371916701
 MonoBehaviour:
@@ -601,7 +601,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Skip Story
+  m_Text: Skip
 --- !u!222 &371916703
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -663,7 +663,7 @@ GameObject:
   m_Component:
   - component: {fileID: 527431702}
   m_Layer: 0
-  m_Name: My pos
+  m_Name: BaborsPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

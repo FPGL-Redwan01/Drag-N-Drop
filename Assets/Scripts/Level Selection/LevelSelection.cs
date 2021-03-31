@@ -8,14 +8,23 @@ public class LevelSelection : MonoBehaviour
 {
     public Button[] lvlButtons;
 
-    // Start is called before the first frame update
     void Start()
     {
         int levelAt = PlayerPrefs.GetInt("levelAt", 4); 
         for (int i = 0; i < lvlButtons.Length; i++)
         {
-            if (i + 4  > levelAt)
+            if (i + 4 > levelAt)
+            {
+                lvlButtons[i].transform.Find("disableImage").gameObject.SetActive(true);
+                lvlButtons[i].transform.Find("enableImage").gameObject.SetActive(false);
                 lvlButtons[i].interactable = false;
+            }
+            else
+            {
+                lvlButtons[i].transform.Find("disableImage").gameObject.SetActive(false);
+                lvlButtons[i].transform.Find("enableImage").gameObject.SetActive(true);
+                lvlButtons[i].interactable = true;
+            }
         }
     }
 

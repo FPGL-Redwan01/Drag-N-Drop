@@ -7,80 +7,56 @@ public class DragFan : MonoBehaviour
 {
 
     public GameObject normalFan, draggedFan;
-    public Transform baloon;
+    public Transform balloon;
     public GameObject blowParticles;
     [SerializeField] private float checkRadius;
     [SerializeField] private float offset;
     private Vector3 _mouseOffset;
-    private Vector3 _initialPosition;  
-    private Transform _windFlowIndicatorPos;
-    private Transform _windFlowIndicatorNeg;
+    private Vector3 _initialPosition;
+    private Quaternion _initialRotation;
     private Fan _fan;
     [HideInInspector]
-    public bool _isPlacedCorrectly;
-
+    public bool isPlacedCorrectly;
     public AudioSource sfxAuidoSource;
 
     private void Awake()
     {
-
-       
-        _windFlowIndicatorPos = transform.Find("windflowPos");
-        _windFlowIndicatorNeg = transform.Find("windflowNeg");
-        
-        _windFlowIndicatorPos.gameObject.SetActive(false);
-        _windFlowIndicatorNeg.gameObject.SetActive(false);
-    }
-
-    private void Start()
-    {
+        _initialPosition = transform.position;
+        _initialRotation = transform.rotation;
         _fan = GetComponent<Fan>();
     }
-
+    
     private void Update()
     {
-
-
-
-        if (_isPlacedCorrectly)
+        if (isPlacedCorrectly)
         {
             _initialPosition = transform.position;
+            _initialRotation = transform.rotation;
             normalFan.transform.GetChild(2).Rotate(0, 0, 1 * 2);
             blowParticles.SetActive(true);
-            _windFlowIndicatorPos.gameObject.SetActive(true);
-            _windFlowIndicatorNeg.gameObject.SetActive(true);
-            _windFlowIndicatorPos.transform.localEulerAngles = new Vector3(0, 0, _fan.forceAngle);
-           _windFlowIndicatorNeg.transform.localEulerAngles = new Vector3(0, 0, -1 * _fan.forceAngle);
           //  Vector3 direction = UtilsClass.GetMouseWorldPosition() - transform.position;
             // Debug.DrawRay(transform.position, direction);
           //  transform.localEulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVector(direction) + offset);
-
-            if (Input.GetMouseButtonDown(0))
-            {
-              //  Destroy(this);
-            }    
         }
     }
 
     private void OnMouseDown()
     {
         _mouseOffset = transform.position - UtilsClass.GetMouseWorldPosition();
-        _isPlacedCorrectly = false;
+        isPlacedCorrectly = false;
         sfxAuidoSource.Pause();
     }
 
     private void OnMouseDrag()
     {
-        if (baloon.position != null)
+        if (balloon.position != null)
         {
-
-
-        blowParticles.SetActive(false);
-        transform.position = UtilsClass.GetMouseWorldPosition() + _mouseOffset;
-        Vector3 direction = baloon.position - transform.position;
+            blowParticles.SetActive(false);
+            transform.position = UtilsClass.GetMouseWorldPosition() + _mouseOffset;
+            Vector3 direction = balloon.position - transform.position;
 
             // Debug.DrawRay(transform.position, direction);
-        transform.localEulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVector(direction) + offset);
+            transform.localEulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVector(direction) + offset);
         }
     }
 
@@ -91,20 +67,21 @@ public class DragFan : MonoBehaviour
         {
             if (collider2D.CompareTag("Spike"))
             {
-                _isPlacedCorrectly = false;
+                isPlacedCorrectly = false;
                 break;
             }
             if (collider2D.CompareTag("Border"))
             {
                 SoundManager.sharedInstance.PlaySFX(SoundManager.sharedInstance.fanSetSFX);
                 sfxAuidoSource.Play();
-                _isPlacedCorrectly = true;
+                isPlacedCorrectly = true;
             }
         }
 
-        if (!_isPlacedCorrectly)
+        if (!isPlacedCorrectly)
         {
             transform.position = _initialPosition;
+            transform.rotation = _initialRotation;
         }
     }
 
