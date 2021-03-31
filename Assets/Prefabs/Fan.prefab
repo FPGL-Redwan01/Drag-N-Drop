@@ -655,7 +655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceRadius: 2.62
   forceAngle: 30
-  df: {fileID: 9121297211518071528}
+  dragFan: {fileID: 0}
   fanTypes: 0
   forcePower: 30
 --- !u!114 &9121297211518071528
@@ -672,11 +672,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalFan: {fileID: 9121297210941032749}
   draggedFan: {fileID: 9121297210675922459}
-  baloon: {fileID: 0}
+  balloon: {fileID: 0}
   blowParticles: {fileID: 9121297212382043284}
   checkRadius: 0.08
   offset: -90
-  _isPlacedCorrectly: 0
+  isPlacedCorrectly: 0
   sfxAuidoSource: {fileID: 9121297211518071523}
 --- !u!50 &9121297211518071524
 Rigidbody2D:
@@ -1078,7 +1078,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 134260, guid: a9bb5993776894d459f46527006acc6b, type: 3}
       propertyPath: m_Name
-      value: BlowingLeaves
+      value: none
       objectReference: {fileID: 0}
     - target: {fileID: 134260, guid: a9bb5993776894d459f46527006acc6b, type: 3}
       propertyPath: m_IsActive
@@ -1156,7 +1156,9 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 19947552, guid: a9bb5993776894d459f46527006acc6b, type: 3}
+    - {fileID: 19808404, guid: a9bb5993776894d459f46527006acc6b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a9bb5993776894d459f46527006acc6b, type: 3}
 --- !u!4 &9121297211885652327 stripped
 Transform:
@@ -1234,6 +1236,14 @@ PrefabInstance:
     - target: {fileID: 415084, guid: a2198d165c0270848aa01adeb1d27577, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 19828276, guid: a2198d165c0270848aa01adeb1d27577, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.maxCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 19828276, guid: a2198d165c0270848aa01adeb1d27577, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 19828276, guid: a2198d165c0270848aa01adeb1d27577, type: 3}
       propertyPath: ShapeModule.angle
@@ -1394,14 +1404,6 @@ PrefabInstance:
     - target: {fileID: 19828276, guid: a2198d165c0270848aa01adeb1d27577, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_RotationOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 19828276, guid: a2198d165c0270848aa01adeb1d27577, type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.maxCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 19828276, guid: a2198d165c0270848aa01adeb1d27577, type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.size
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 19828276, guid: a2198d165c0270848aa01adeb1d27577, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.maxCurve.m_Curve.Array.data[1].time

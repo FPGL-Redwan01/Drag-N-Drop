@@ -6,7 +6,7 @@ using DG.Tweening;
 public class StoryScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject ballon ;
+    public GameObject ballon , ui ;
     public GameObject pp, me, drone;
     public Transform dronePos, myPos, ppPos;
 
@@ -25,7 +25,7 @@ public class StoryScript : MonoBehaviour
     public IEnumerator StartStory()
     {
         yield return new WaitForSeconds(4);
-
+        ui.gameObject.SetActive(true);
         MovePP();
     }
     void MovePP()

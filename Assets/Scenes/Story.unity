@@ -561,7 +561,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371916699}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
   m_Name: 
@@ -589,7 +589,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 46522c90fb638604cb87f93f73a3d398, type: 3}
     m_FontSize: 136
     m_FontStyle: 1
     m_BestFit: 0
@@ -1238,8 +1238,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 52
+    m_Font: {fileID: 12800000, guid: 46522c90fb638604cb87f93f73a3d398, type: 3}
+    m_FontSize: 37
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -1411,7 +1411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1358371957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1670,6 +1670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballon: {fileID: 538802077}
+  ui: {fileID: 1358371956}
   pp: {fileID: 542840266}
   me: {fileID: 126569651}
   drone: {fileID: 1181637305}
@@ -1749,8 +1750,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 52
+    m_Font: {fileID: 12800000, guid: 46522c90fb638604cb87f93f73a3d398, type: 3}
+    m_FontSize: 47
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
