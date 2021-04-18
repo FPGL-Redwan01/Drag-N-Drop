@@ -1,2 +1,2 @@
 # Drag-N-Drop
-A game made for BrainJam 2021
+Winning game of BrainJam 2021
